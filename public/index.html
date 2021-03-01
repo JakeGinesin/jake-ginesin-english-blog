@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  </head>
+  <body onload="pullPosts()">
+    <style>
+      body{
+        font-weight:300;
+        font-size:1.25rem;
+      }
+      .footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        background-color: #f5f5f5;
+      }
+      #addposts:hover{
+        cursor:pointer;
+      }
+    </style>
+    <div class="container">
+      <h2 class="d-flex justify-content-center mt-5">
+        Jake's English Blog Thing
+      </h2>
+      <div id="posts" style="margin-top:50px;">
+
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="d-flex justify-content-center" id="addposts" onclick="window.location='edit.html'">
+          add posts
+        </div>
+      </div>
+    </footer>
+    <script>
+      async function pullPosts(){
+        let result = await fetch("/api/getposts");
+        let posts = await result.json();
+
+        posts.forEach((post)=>{
+
+          let container = document.createElement("div");
+          container.class = "post";
+
+          let title = document.createElement("h4");
+          let titleText = document.createTextNode(post.title + " - " + (post.date).slice(0,10));
+          title.appendChild(titleText);
+
+          let textContainer = document.createElement("div");
+          textContainer.class="d-flex justify-content-center";
+
+          let paragraph = document.createElement("p");
+          let paragraphText = document.createTextNode(post.content);
+          paragraph.appendChild(paragraphText);
+
+          textContainer.appendChild(paragraph);
+
+          container.appendChild(title);
+          container.appendChild(textContainer);
+
+          let dropper = document.getElementById("posts");
+          dropper.appendChild(container);
+        });
+      }
+    </script>
+  </body>
+</html>
