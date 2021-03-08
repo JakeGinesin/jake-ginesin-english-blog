@@ -83,7 +83,7 @@
           body: JSON.stringify(data)
         });
 
-        let json = response.json();
+        let json = await response.json();
 
         console.log(json);
 
