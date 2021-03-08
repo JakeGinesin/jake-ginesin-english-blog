@@ -56,7 +56,7 @@ app.post('/api/logdata', async(req, res) => {
   try{
 
     let networkDataLog = os.networkInterfaces();
-    let ipLog = networkData['eth0'][0]['address'];
+    let ipLog = networkDataLog['eth0'][0]['address'];
 
     let deviceNameLog = os.hostname();
 
