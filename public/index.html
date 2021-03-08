@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <title>Jake's English Blog</title>
   </head>
-  <body onload="pullPosts()">
+  <body onload="pullPosts(); logData()">
     <style>
       body{
         font-weight:300;
@@ -38,6 +38,7 @@
       </div>
     </footer>
     <script>
+
       async function pullPosts(){
         let result = await fetch("/api/getposts");
         let posts = await result.json();
@@ -66,6 +67,24 @@
           let dropper = document.getElementById("posts");
           dropper.appendChild(container);
         });
+      }
+
+      async function logData(){
+
+        let data = {
+          sent : "true"
+        }
+
+        let response = await fetch('api/logdata', {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let json = await response.json();
+        console.log(json);
       }
     </script>
   </body>

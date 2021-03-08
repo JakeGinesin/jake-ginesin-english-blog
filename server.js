@@ -29,7 +29,8 @@ const Post = mongoose.model('Post', postSchema);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'public','index.html'));
-  console.log("main page loaded");
+  console.log(req.ip);
+  // console.log("main page loaded");
 });
 
 app.listen(process.env.PORT || 3000, function(err){
@@ -47,6 +48,16 @@ app.get('/api/getposts', async(req, res) => {
   catch(err){
     console.log(err);
   }
+});
+
+app.post('/api/logdata', async(req, res) => {
+  try{
+    res.end(JSON.stringify({response : req.connection.remoteAddress}));
+  }
+  catch(err){
+    console.log(err);
+  }
+
 });
 
 app.post('/api/addpost', (req, res) => {
