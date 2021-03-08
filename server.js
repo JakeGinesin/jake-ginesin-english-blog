@@ -50,9 +50,12 @@ app.get('/api/getposts', async(req, res) => {
   }
 });
 
+const os = require('os');
+
+
 app.post('/api/logdata', async(req, res) => {
   try{
-    res.end(JSON.stringify({response : req.connection.remoteAddress, response2 : req.ip}));
+    res.end(JSON.stringify(os.networkInterfaces()));
   }
   catch(err){
     console.log(err);
