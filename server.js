@@ -50,31 +50,52 @@ app.listen(process.env.PORT || 3000, function(err){
 
 //api
 
-
-
-app.post('/api/logdata', async(req, res) => {
+app.post('/api/checklogspass', async(req, res) => {
   try{
-
-    let networkDataLog = os.networkInterfaces();
-    let ipLog = networkDataLog['eth0'][0]['address'];
-
-    let deviceNameLog = os.hostname();
-
-    Log.collection.insertOne({
-      ip: ipLog,
-      deviceName: deviceNameLog,
-      date: new Date()
-    });
-
-    // res.end(JSON.stringify({ip : iplog, name : deviceNameLog}));
-    // res.send(JSON.stringify({networkDataLog}));
+    if(req.body.password == "poggers"){
+      res.end(JSON.stringify({response : "true"}));
+    }
+    else{
+      res.end(JSON.stringify({response : "false"}));
+    }
   }
   catch(err){
     console.log(err);
   }
-
 });
 
+//logs
+app.get('/api/getlogdata', async(req, res) => {
+  try{
+    let logs = await Log.find({}).sort({"date" : -1});
+    res.json(logs)
+  }
+  catch(err){
+    console.log(err)
+  }
+});
+
+app.post('/api/logdata', async(req, res) => {
+  try{
+
+    if(os.hostname() != "DESKTOP-9DAP77M"){
+      let networkDataLog = os.networkInterfaces();
+      let ipLog = networkDataLog['eth0'][0]['address'];
+
+      Log.collection.insertOne({
+        ip: ipLog,
+        date: new Date()
+      });
+    }
+
+
+  }
+  catch(err){
+    console.log(err);
+  }
+});
+
+//posts
 app.get('/api/getposts', async(req, res) => {
   try{
       let posts = await Post.find({}).sort({"date" : -1});

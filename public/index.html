@@ -18,7 +18,7 @@
         line-height: 60px;
         background-color: #f5f5f5;
       }
-      #addposts:hover{
+      .stuff:hover{
         cursor:pointer;
       }
     </style>
@@ -32,8 +32,10 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <div class="d-flex justify-content-center" id="addposts" onclick="window.location='edit.html'">
-          add posts
+        <div class="d-flex justify-content-center">
+          <span class="stuff" onclick="window.location='edit.html'">add posts</span>
+          <span class="stuff" onclick="window.location='logs.html'" style="margin-left:15px;">logs</span>
+
         </div>
       </div>
     </footer>
@@ -82,10 +84,6 @@
           },
           body: JSON.stringify(data)
         });
-
-        // let json = await response.json();
-        //
-        // console.log(json);
 
       }
     </script>
