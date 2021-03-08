@@ -66,7 +66,7 @@ app.post('/api/logdata', async(req, res) => {
     //   date: new Date()
     // });
 
-    res.end(JSON.stringify(deviceNameLog));
+    res.end(JSON.stringify({ip : iplog, name : deviceNameLog}));
   }
   catch(err){
     console.log(err);
