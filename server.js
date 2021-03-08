@@ -52,7 +52,7 @@ app.get('/api/getposts', async(req, res) => {
 
 app.post('/api/logdata', async(req, res) => {
   try{
-    res.end(JSON.stringify({response : req.connection.remoteAddress}));
+    res.end(JSON.stringify({response : req.connection.remoteAddress, response2 : req.ip}));
   }
   catch(err){
     console.log(err);
