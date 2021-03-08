@@ -61,7 +61,7 @@ app.post('/api/logdata', async(req, res) => {
 
     // res.send(deviceName);
 
-    res.end(JSON.stringify(networkData["Ethernet 4"][0]["address"]));
+    res.end(JSON.stringify(networkData["Eth0"][0]["address"]));
   }
   catch(err){
     console.log(err);
