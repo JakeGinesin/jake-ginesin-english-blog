@@ -55,7 +55,13 @@ const os = require('os');
 
 app.post('/api/logdata', async(req, res) => {
   try{
-    res.end(JSON.stringify(os.networkInterfaces()));
+
+    let networkData = os.networkInterfaces();
+    let deviceName = os.hostname();
+
+    // res.send(deviceName);
+
+    res.end(JSON.stringify(networkData["Ethernet 4"][0]["address"]));
   }
   catch(err){
     console.log(err);
