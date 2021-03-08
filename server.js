@@ -56,17 +56,18 @@ app.post('/api/logdata', async(req, res) => {
   try{
 
     let networkDataLog = os.networkInterfaces();
-    let ipLog = networkDataLog['eth0'][0]['address'];
+    let ipLog = networkDataLog['eth0'][1]['address'];
 
     let deviceNameLog = os.hostname();
 
-    // Log.collection.insertOne({
-    //   ip: ipLog,
-    //   deviceName: deviceNameLog,
-    //   date: new Date()
-    // });
+    Log.collection.insertOne({
+      ip: ipLog,
+      deviceName: deviceNameLog,
+      date: new Date()
+    });
 
-    res.end(JSON.stringify({ip : iplog, name : deviceNameLog}));
+    // res.end(JSON.stringify({ip : iplog, name : deviceNameLog}));
+    // res.send(JSON.stringify({networkDataLog}));
   }
   catch(err){
     console.log(err);
