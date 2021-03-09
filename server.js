@@ -82,7 +82,7 @@ app.post('/api/logdata', async(req, res) => {
       // let networkDataLog = os.networkInterfaces();
       // let ipLog = networkDataLog['eth0'][0]['address'];
 
-      let ipLog = req.headers['x-forwarded-for'];
+      // let ipLog = req.headers['x-forwarded-for'];
 
       Log.collection.insertOne({
         ip: req.ip,
