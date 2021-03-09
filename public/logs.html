@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <title>Logs</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="d-flex justify-content-center mt-5">
+        Logs
+      </h2>
+      <form>
+        <div class="form-group d-flex justify-content-center" style="margin-top:20px;">
+          <div class="col-3">
+
+            <div class="row">
+                <!-- <label for="password">Secret key</label> -->
+                <input type="text" id="pass" class="form-control" id="password" placeholder="Secret Key"/>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div id="logs" style="margin-top:50px;">
+        <table id="table" class="table" style="opacity:0;">
+          <thead>
+            <tr>
+              <th scope="col">IP</th>
+              <th scope="col">Device</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      document.getElementById("pass").addEventListener("keyup", async()=>{
+        let input = document.getElementById("pass").value;
+
+        let data = {
+          password : input
+        }
+
+        let response = await fetch('api/checklogspass', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        let json = await response.json();
+        let answer = json.response;
+
+        if(answer == "true"){
+
+
+
+          let result = await fetch("/api/getlogdata");
+          let logs = await result.json();
+
+          document.getElementById("table").style.opacity = "1";
+
+          logs.forEach((log)=>{
+            let container = document.createElement("tr");
+
+            let ip = document.createElement("td");
+            let iptext = document.createTextNode(log.ip);
+            ip.appendChild(iptext);
+
+            let device = document.createElement("td");
+            let devicetext = document.createTextNode(log.deviceName);
+            device.appendChild(devicetext);
+
+            let date = document.createElement("td");
+            let datetext = document.createTextNode(log.date);
+            date.appendChild(datetext);
+
+            container.appendChild(ip);
+            container.appendChild(device);
+            container.appendChild(date);
+
+            let dropper = document.getElementById("table-body");
+            dropper.appendChild(container);
+          });
+
+        }
+        else if(answer == "false"){
+          document.getElementById("table").style.opacity = "0";
+          document.getElementById("table-body").innerHTML = '';
+        }
+        else console.log("error!")
+
+
+      });
+    </script>
+  </body>
+</html>
