@@ -85,7 +85,7 @@ app.post('/api/logdata', async(req, res) => {
       let ipLog = req.headers['x-forwarded-for'];
 
       Log.collection.insertOne({
-        ip: ipLog,
+        ip: req.ip,
         date: new Date()
       });
     // }
