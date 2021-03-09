@@ -78,7 +78,7 @@ app.get('/api/getlogdata', async(req, res) => {
 app.post('/api/logdata', async(req, res) => {
   try{
 
-    if(os.hostname() != "DESKTOP-9DAP77M"){
+    // if(os.hostname() != "DESKTOP-9DAP77M"){
       let networkDataLog = os.networkInterfaces();
       let ipLog = networkDataLog['eth0'][0]['address'];
 
@@ -86,7 +86,7 @@ app.post('/api/logdata', async(req, res) => {
         ip: ipLog,
         date: new Date()
       });
-    }
+    // }
 
 
   }
